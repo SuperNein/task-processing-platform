@@ -1,7 +1,7 @@
 from typing import Iterable, Optional
 
 from src.core.task_model import Task
-from src.protocols.sources import TaskSource
+from src.protocols.source import TaskSource
 from src.services.validation import SourceValidator
 
 

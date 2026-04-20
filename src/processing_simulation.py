@@ -2,7 +2,7 @@ import time
 
 from src.core.enums import TaskStatus
 from src.core.task_queue import TaskQueue
-from src.protocols.sources import TaskSource
+from src.protocols.source import TaskSource
 from src.services.loader import TasksLoader
 
 

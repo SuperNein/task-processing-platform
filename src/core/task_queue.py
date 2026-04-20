@@ -1,6 +1,6 @@
 from typing import Optional, Iterator, Iterable, Callable
 
-from src.core.models import Task
+from src.core.task_model import Task
 from src.core.enums import TaskPriority, TaskStatus
 
 

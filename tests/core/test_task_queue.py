@@ -1,6 +1,6 @@
 import pytest
 
-from src.core.models import Task
+from src.core.task_model import Task
 from src.core.task_queue import TaskQueue, _TaskQueueFilter
 from src.core.enums import TaskPriority, TaskStatus
 

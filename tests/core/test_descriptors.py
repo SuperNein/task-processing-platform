@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 
 from src.common.constants import VALID_STATUS_CHANGES
-from src.core.models import Task
+from src.core.task_model import Task
 from src.core.enums import TaskPriority, TaskStatus
 from src.core.exceptions.task_errors import (
     InvalidPriorityError,

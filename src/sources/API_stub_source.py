@@ -1,6 +1,6 @@
 from typing import List, Optional, Iterable, Dict
 
-from src.core.models import Task
+from src.core.task_model import Task
 from src.common.constants import API_STUB_TASKS
 
 

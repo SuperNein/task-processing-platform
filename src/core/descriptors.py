@@ -2,7 +2,7 @@ from typing import Optional, Any
 
 from src.common.constants import VALID_STATUS_CHANGES
 from src.core.enums import TaskPriority, TaskStatus
-from src.core.exceptions import (
+from src.core.exceptions.task_errors import (
     InvalidPriorityError,
     InvalidStatusError,
     InvalidStatusChangeError

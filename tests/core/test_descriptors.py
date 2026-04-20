@@ -5,7 +5,7 @@ from datetime import datetime
 from src.common.constants import VALID_STATUS_CHANGES
 from src.core.models import Task
 from src.core.enums import TaskPriority, TaskStatus
-from src.core.exceptions import (
+from src.core.exceptions.task_errors import (
     InvalidPriorityError,
     InvalidStatusError,
     InvalidStatusChangeError,

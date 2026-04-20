@@ -1,0 +1,8 @@
+[project]
+name = "contracts_lab"
+version = "0.1.0"
+description = "Contracts lab"
+requires-python = ">=3.14"
+dependencies = [
+    "pytest>=8.4.2",
+]

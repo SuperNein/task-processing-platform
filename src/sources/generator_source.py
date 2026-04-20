@@ -1,0 +1,15 @@
+from typing import Iterable, Any
+
+from src.core.models import Task
+
+
+class GeneratorTaskSource:
+    def __init__(self, count: int = 10, description: Any = None):
+        self._count = count
+        self.description = description or ""
+
+    def get_tasks(self) -> Iterable[Task]:
+        for _ in range(self._count):
+            yield Task(
+                description=self.description,
+            )

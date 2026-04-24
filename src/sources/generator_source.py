@@ -9,7 +9,8 @@ class GeneratorTaskSource:
         self.description = description or ""
 
     def get_tasks(self) -> Iterable[Task]:
-        for _ in range(self._count):
+        for i in range(self._count):
             yield Task(
                 description=self.description,
+                priority=(i % 4) + 1
             )

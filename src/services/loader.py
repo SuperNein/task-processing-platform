@@ -1,16 +1,15 @@
-from typing import Iterable, Optional
+from typing import Iterable
 
 from src.core.task_model import Task
 from src.protocols.source import TaskSource
-from src.services.validation import SourceValidator
+from src.services.validation import ProtocolValidator
 
 
-class TasksLoader:
-    def __init__(self, source: TaskSource, validator: Optional[SourceValidator] = None):
-        if validator is None:
-            validator = SourceValidator()
+class TaskSourceLoader:
+    _validator = ProtocolValidator(protocol=TaskSource)
 
-        validator.validate(source)
+    def __init__(self, source: TaskSource):
+        self._validator.validate(source)
         self._source = source
 
     def load(self) -> Iterable[Task]:

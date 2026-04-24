@@ -3,7 +3,7 @@ import time
 from src.core.enums import TaskStatus
 from src.core.task_queue import TaskQueue
 from src.protocols.source import TaskSource
-from src.services.loader import TasksLoader
+from src.services.loader import TaskSourceLoader
 
 
 def process_tasks(source: TaskSource) -> TaskQueue:
@@ -12,7 +12,7 @@ def process_tasks(source: TaskSource) -> TaskQueue:
     :return:    list of closed tasks
     """
     print(f"Start tasks from {source.__class__.__name__} processing...")
-    loader = TasksLoader(source)
+    loader = TaskSourceLoader(source)
     tasks = TaskQueue(loader.load())
 
     for task in tasks:

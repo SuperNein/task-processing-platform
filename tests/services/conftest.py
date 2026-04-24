@@ -1,12 +1,13 @@
 import pytest
 
-from src.services.validation import SourceValidator
+from src.services.validation import ProtocolValidator
+from src.protocols.source import TaskSource
 
 
 # Services
 @pytest.fixture
-def validator():
-    return SourceValidator()
+def source_validator():
+    return ProtocolValidator(protocol=TaskSource)
 
 
 # Sources

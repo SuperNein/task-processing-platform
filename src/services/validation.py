@@ -1,18 +1,17 @@
-from typing import Type, Any
-
-from src.protocols.source import TaskSource
+from typing import Type, Any, Protocol
 
 
-class SourceValidator:
-    def __init__(self, protocol: Type[TaskSource] = TaskSource):
+class ProtocolValidator:
+    """Validate objects as protocol"""
+    def __init__(self, protocol: Type[Protocol]):
         self._protocol = protocol
 
-    def is_valid(self, source: Any) -> bool:
-        return isinstance(source, self._protocol)
+    def is_valid(self, obj: Any) -> bool:
+        return isinstance(obj, self._protocol)
 
-    def validate(self, source: Any) -> None:
-        if not self.is_valid(source):
+    def validate(self, obj: Any) -> None:
+        if not self.is_valid(obj):
             raise TypeError(
-                f"'{type(source).__name__}' is missing "
+                f"'{type(obj).__name__}' is missing "
                 f"following '{self._protocol.__name__}' protocol member."
             )

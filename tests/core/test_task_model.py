@@ -21,8 +21,8 @@ class TestTask:
     def test_repr_task(self, task):
         assert repr(task) == (
                 f"Task("
-                f"description='test_description', "
-                f"priority=2)"
+                f"description='{task.description}', "
+                f"priority={task.priority})"
             )
 
     def test_tasks_eq(self, task):

@@ -81,7 +81,7 @@ class AsyncTaskExecutor:
 
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> bool:
         if self._queue:
-            self._queue.close()
+            self._queue.close(workers=self._workers)
 
         await asyncio.gather(*self._worker_tasks, return_exceptions=True)
 
@@ -95,18 +95,17 @@ class AsyncTaskExecutor:
             try:
                 task = await self._queue.get()
 
-                try:
-                    if self._handler is None:
-                        raise HandlerNotRegisteredError
-                    await self._handler.handle(task)
-
-                except Exception as e:
-                    error = TaskProcessingError(task, e)
-                    self._errors.append(error)
-
             except QueueShutdownError:
                 break
 
+            try:
+                if self._handler is None:
+                    raise HandlerNotRegisteredError
+                await self._handler.handle(task)
+
+            except Exception as e:
+                error = TaskProcessingError(task, e)
+                self._errors.append(error)
+
             finally:
-                if self._queue:
-                    self._queue.task_done()
+                self._queue.task_done()

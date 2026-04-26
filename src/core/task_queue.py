@@ -9,12 +9,19 @@ from src.core.exceptions.task_queue_errors import (
 )
 
 
+class _Sentinel:
+    """Sentinel object for closing async queue"""
+    pass
+
+
 class AsyncTaskQueue:
     """asyncio.Queue composition for Task model"""
+    _sentinel = _Sentinel()
+
     __slots__ = ("_queue", "_closed")
 
     def __init__(self) -> None:
-        self._queue: asyncio.Queue[Task] = asyncio.Queue()
+        self._queue: asyncio.Queue[Task | object] = asyncio.Queue()
         self._closed: bool = False
 
 
@@ -22,12 +29,18 @@ class AsyncTaskQueue:
     def is_closed(self) -> bool:
         return self._closed
 
-    def close(self) -> None:
+    def close(self, workers: int) -> None:
         """
         Close queue from putting new tasks
         Queue shutdown signal
         """
+        if self.is_closed:
+            return
+
         self._closed = True
+
+        for _ in range(workers):
+            self._queue.put_nowait(self._sentinel)
 
 
     async def put(self, task: Task) -> None:
@@ -45,10 +58,11 @@ class AsyncTaskQueue:
 
     async def get(self) -> Task:
         """Remove and return task from the queue."""
-        if self._closed and self._queue.empty():
+        task = await self._queue.get()
+
+        if task is self._sentinel:
             raise QueueShutdownError
 
-        task = await self._queue.get()
         return task
 
 

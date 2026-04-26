@@ -1,3 +1,4 @@
+import logging
 import asyncio
 
 from src.core.task_model import Task
@@ -5,6 +6,9 @@ from src.core.exceptions.task_queue_errors import (
     QueueClosedError,
     QueueShutdownError,
 )
+
+
+logger = logging.getLogger(__name__)
 
 
 class _Sentinel:
@@ -36,6 +40,7 @@ class AsyncTaskQueue:
             return
 
         self._closed = True
+        logger.info(f"Queue closed (workers={workers})")
 
         for _ in range(workers):
             self._queue.put_nowait(self._sentinel)
@@ -44,6 +49,7 @@ class AsyncTaskQueue:
     async def put(self, task: Task) -> None:
         """Put a task into the queue."""
         if self._closed:
+            logger.warning("Attempt to put task into closed queue")
             raise QueueClosedError
 
         if not isinstance(task, Task):
@@ -52,6 +58,7 @@ class AsyncTaskQueue:
             )
 
         await self._queue.put(task)
+        logger.debug(f"Task enqueued id={task.id}")
 
 
     async def get(self) -> Task:
@@ -59,8 +66,10 @@ class AsyncTaskQueue:
         task = await self._queue.get()
 
         if task is self._sentinel:
+            logger.debug("Queue shutdown signal received")
             raise QueueShutdownError
 
+        logger.debug(f"Task dequeued id={task.id}")
         return task
 
 

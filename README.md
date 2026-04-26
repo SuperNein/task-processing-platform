@@ -30,13 +30,18 @@ task-processing-platform
     │       logging_config.py
     │                
     ├───core
-    │       async_task_queue.py         # Асинхронная очередь задач
-    │       descriptors.py              # Дескрипторы полей Task
-    │       enums.py                    # Перечисления типов Priority, Status
-    │       exceptions.py               # Исключения нарушения инвариантов
-    │       task_model.py               # Класс Task
-    │       task_queue.py               # Коллекция TaskQueue
-    │   
+    │   │   async_task_queue.py         # Асинхронная очередь задач
+    │   │   descriptors.py              # Дескрипторы полей Task
+    │   │   enums.py                    # Перечисления типов Priority, Status
+    │   │   executor.py                 # Асинхронный исполнитель
+    │   │   task_model.py               # Класс Task
+    │   │   task_queue.py               # Коллекция TaskQueue
+    │   │
+    │   └───exceptions                  # Исключения для core
+    │           executor_errors.py
+    │           task_errors.py
+    │           task_queue_errors.py
+    │
     ├───handlers                        # Асинхронные обработчики задач
     │       failing_handler.py
     │       print_handler.py

@@ -1,5 +1,6 @@
 import asyncio
 
+from src.common.logging_config import setup_logging
 from src.sources.generator_source import GeneratorTaskSource
 from src.demo_execution import demo_execution
 
@@ -15,4 +16,5 @@ async def main() -> None:
 
 
 if "__main__" == __name__:
+    setup_logging(level="INFO")
     asyncio.run(main())

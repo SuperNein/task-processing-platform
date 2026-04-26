@@ -79,3 +79,19 @@ class AsyncTaskQueue:
     def empty(self) -> bool:
         """Return True if the queue is empty, False otherwise."""
         return self._queue.empty()
+
+    def __aiter__(self):
+        return self._iter()
+
+    async def _iter(self):
+        """Async generator for __aiter__"""
+        while True:
+            try:
+                task = await self.get()
+            except QueueShutdownError:
+                break
+
+            try:
+                yield task
+            finally:
+                self.task_done()

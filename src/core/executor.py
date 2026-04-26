@@ -91,21 +91,13 @@ class AsyncTaskExecutor:
 
     async def _worker_loop(self, name: str) -> None:
         """Takes a task from the queue and processes"""
-        while True:
-            try:
-                task = await self._queue.get()
-
-            except QueueShutdownError:
-                break
-
+        async for task in self._queue:
             try:
                 if self._handler is None:
                     raise HandlerNotRegisteredError
+
                 await self._handler.handle(task)
 
             except Exception as e:
                 error = TaskProcessingError(task, e)
                 self._errors.append(error)
-
-            finally:
-                self._queue.task_done()

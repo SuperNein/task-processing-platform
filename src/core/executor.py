@@ -3,7 +3,7 @@ import asyncio
 from src.protocols.handler import TaskHandler
 from src.services.validation import ProtocolValidator
 from src.core.task_model import Task
-from src.core.task_queue import AsyncTaskQueue
+from src.core.async_task_queue import AsyncTaskQueue
 from src.core.exceptions.task_queue_errors import QueueShutdownError
 from src.core.exceptions.executor_errors import (
     TaskProcessingError,

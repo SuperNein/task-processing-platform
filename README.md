@@ -22,7 +22,7 @@ task-processing-platform
 ├───examples
 │           
 └───src
-    │   demo_execution.py        # Демонстрация обработки задач
+    │   demo_execution.py               # Демонстрация обработки задач
     │   main.py
     │   
     ├───common

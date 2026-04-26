@@ -1,27 +1,18 @@
-from pathlib import Path
+import asyncio
 
 from src.sources.generator_source import GeneratorTaskSource
-from src.sources.file_source import JSONTaskSource
-from src.sources.API_stub_source import APIStubTasksSource
-from src.processing_simulation import process_tasks
+from src.demo_execution import demo_execution
 
 
-JSON_FILE_PATH = Path(__file__).parent.parent / "examples" / "tasks.json"
-
-
-def main() -> None:
+async def main() -> None:
     """
     Main entry point for the application.
     :return:   None
     """
-    sources = [
-        GeneratorTaskSource(count=5),
-        JSONTaskSource(JSON_FILE_PATH),
-        APIStubTasksSource("https://url/tasks"),
-    ]
-    for source in sources:
-        process_tasks(source)
+    source = GeneratorTaskSource(count=15)
+
+    await demo_execution(source)
 
 
 if "__main__" == __name__:
-    main()
+    asyncio.run(main())

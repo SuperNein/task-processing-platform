@@ -10,17 +10,6 @@ from src.core.exceptions.task_queue_errors import (
 
 
 @pytest.fixture
-def task():
-    return Task(description="test", priority=1)
-
-@pytest.fixture
-def tasks():
-    return [
-        Task(description=f"task_{i}", priority=1)
-        for i in range(3)
-    ]
-
-@pytest.fixture
 def queue():
     return AsyncTaskQueue()
 

@@ -67,6 +67,7 @@ class AsyncTaskQueue:
 
         if task is self._sentinel:
             logger.debug("Queue shutdown signal received")
+            self._queue.task_done()
             raise QueueShutdownError
 
         logger.debug(f"Task dequeued id={task.id}")

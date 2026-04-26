@@ -131,4 +131,4 @@ class AsyncTaskExecutor:
 
                 logger.error(f"{name} failed task id={task.id} error={e}",)
 
-            logger.debug(f"{name} stopped")
+        logger.debug(f"{name} stopped")
